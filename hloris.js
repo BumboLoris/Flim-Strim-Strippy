@@ -1,11 +1,41 @@
 
-globalThis.strim = new Array ();
+window.strim = new Array ();
 
 const num_im = 5;
 
 for (let q = 0  ;  q < num_im  ;  ++q)
   strim . push (new Image ());
 
+let hoveree = null;
+
+function MouseEnterIm (ev)
+{ this.style.borderColor = "red";
+  this.style.borderWidth = "thick";
+  hoveree = this;
+}
+
+function MouseLeaveIm (ev)
+{ this.style.borderColor = "black";
+  this.style.borderWidth = "0px";
+  //this.blur ();
+  hoveree = null;
+}
+
+function MouseDownIm (ev)
+{ this.style.borderColor = "blue";
+  this.style.borderWidth = "100px";
+}
+
+function MouseUpIm (ev)
+{ this.style.borderColor = "pink";
+  this.style.borderWidth = "0px";
+  this.before(" frog");
+}
+
+function KeyDownUniv (ev)
+{ if (hoveree != null)
+    hoveree . before (" flap");
+}
 
 for (let q = 0  ;  q < num_im  ;  ++q)
   { let im = strim[q];
@@ -15,61 +45,34 @@ for (let q = 0  ;  q < num_im  ;  ++q)
 
     im.namai = "immy-" + (q+1);  // just a li'l name for debugging.
 
-    im . addEventListener ("mouseenter",
-                           function (ev) { this.style.borderColor = "red";
-                                           this.style.borderWidth = "thick";
-                                           this.focus ();
-                                         }
-                          );
-    im . addEventListener ("mouseleave",
-                           function (ev) { this.style.borderColor = "black";
-                                            this.style.borderWidth = "0px";
-                                            this.blur ();
-                                         }
-                          );
-
-    im . addEventListener ("mousedown",
-                           function (ev) { this.style.borderColor = "blue";
-                                           this.style.borderWidth = "100px";
-                                         }
-                          );
-
-    im . addEventListener ("mouseup",
-                           function (ev) { this.style.borderColor = "pink";
-                                           this.style.borderWidth = "0px";
-                                           this.before("frog");
-                                         }
-                          );
-
-    im . addEventListener ("keydown",
-                           function (ev) { // this.style.borderColor = "blue";
-                                           // this.style.borderWidth = "100px";
-                                           console.log ("key -- " + this.namai);
-                                         }
-                          );
+    im . addEventListener ("mouseenter", MouseEnterIm);
+    im . addEventListener ("mouseleave", MouseLeaveIm);
+    im . addEventListener ("mousedown", MouseDownIm);
+    im . addEventListener ("mouseup", MouseUpIm);
 }
 
 
-let strippy = globalThis.document . createElement ('div');
+let strippy = window.document . createElement ('div');
+let soloist = window.document . createElement ('div');
 
-globalThis.document.body . appendChild (strippy);
+window.document.body . appendChild (strippy);
+window.document.body . appendChild (soloist);
 
 for (let q = 0  ;  q < num_im  ;  ++q)
   strippy . appendChild (strim[q]);
 
 let flim = new Image ();
-
 let flimcount = 0;
-
-strim . push (flim);
-
-
-strippy . appendChild (strim[num_im]);
+soloist . appendChild (flim);
 
 
-setInterval (function () { flim.src = strim[flimcount].src;
-                           if (++flimcount  >=  num_im)
-                             flimcount = 0;
-                         },
-             333
-            );
+function FlipToNextImage ()
+{ flim.src = strim[flimcount].src;
+  if (++flimcount  >=  num_im)
+      flimcount = 0;
+}
+
+setInterval (FlipToNextImage, 333);
+
+
+window.document.body . addEventListener ("keydown", KeyDownUniv);
