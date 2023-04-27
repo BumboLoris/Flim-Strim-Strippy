@@ -1,7 +1,10 @@
 
+//import { MotherTime } from "./MotherTime.js";
+
+
 const num_im = 5;
 
-const inter_gap = 0;  // that'd be in pixels, Chet.
+const inter_gap = 8;  // that'd be in pixels, Chet.
 
 const brdr_wid = "2px";
 
@@ -47,6 +50,12 @@ window.strim = new Array ();  // attaches 'strim' to the global object
 
 let total_wid = 0;
 
+let strip_xpos = 0;
+let strip_drift_per_sec = -35.0;
+
+let momma = new MotherTime ();
+
+
 function OmniscienceAttained ()
 { let grid_str = "";
 
@@ -78,7 +87,33 @@ function OmniscienceAttained ()
         strippy . appendChild (im);
         LampreyHandlersOntoImage (im);
       }
+
+  momma . ZeroTime ();
+  setInterval (ScrollThatOldStrippy, 33);
+
+  if (strip_drift_per_sec  >  0.0)
+    { strip_xpos = -total_wid;
+      strippy.style.left = "" + strip_xpos + "px";
+    }
 }
+
+
+function ScrollThatOldStrippy ()
+{ let dt = momma . DeltaTime ();
+  strip_xpos += dt * strip_drift_per_sec;
+
+  if (strip_drift_per_sec  <  0.0)
+    { while (strip_xpos  <  -total_wid)
+        strip_xpos += total_wid;
+    }
+  else
+    { while (strip_xpos  >  0.0)
+        strip_xpos -= total_wid;
+    }
+
+  strippy.style.left = "" + strip_xpos + "px";
+}
+
 
 let loaded_so_far = 0;
 
