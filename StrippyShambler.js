@@ -1,5 +1,6 @@
 
-function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap)
+function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
+                              ApplyEventHandlersFunc)
 { if (typeof (im_height) != 'number')
     im_height = 120;
   if (inter_gap == undefined)
@@ -38,11 +39,7 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap)
 
       // now: how many times do we need to repeat?
       let winwid = window.innerWidth;
-      let duper_count = 0;
-      if (total_wid > winwid)
-        duper_count = 1;
-      else
-        duper_count = 1 + Math.floor (winwid / total_wid);
+      let duper_count = 1 + Math.floor (winwid / total_wid);
 
       let full_grid_str = grid_str;
       for (let extry = 0  ;  extry < duper_count  ;  ++extry)
@@ -53,7 +50,8 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap)
         for (let q = 0  ;  q < num_im  ;  ++q)
           { let im = strim[q] . cloneNode ()
             strippy . appendChild (im);
-            LampreyHandlersOntoImage (im);
+            if (typeof (ApplyEventHandlersFunc)  ==  'function')
+              ApplyEventHandlersFunc (im);
           }
 
       momma . ZeroTime ();
@@ -105,6 +103,10 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap)
 
       im . addEventListener ("load", CompletedIm);
       im . addEventListener ("error", BadloadIm);
+
+      if (typeof (ApplyEventHandlersFunc)  ==  'function')
+        ApplyEventHandlersFunc (im);
+
       im.src = im_name_base + (q+1) + ".png";
     }
 

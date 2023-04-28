@@ -43,95 +43,7 @@ function LampreyHandlersOntoImage (im)
 }
 
 
-let strippy = window.document . createElement ('div');
 let soloist = window.document . createElement ('div');
-
-window.strim = new Array ();  // attaches 'strim' to the global object
-
-let total_wid = 0;
-
-let strip_xpos = 0;
-let strip_drift_per_sec = -35.0;
-
-let momma = new MotherTime ();
-
-
-function OmniscienceAttained ()
-{ let grid_str = "";
-
-  for (let q = 0  ;  q < num_im  ;  ++q)
-    { let im = strim[q];
-      let w = im.width;
-      if (w > 0)
-        w += inter_gap;
-      total_wid += w;
-      grid_str = grid_str + w + "px ";
-    }
-
-  // now: how many times do we need to repeat?
-  let winwid = window.innerWidth;
-  let duper_count = 0;
-  if (total_wid > winwid)
-    duper_count = 1;
-  else
-    duper_count = 1 + Math.floor (winwid / total_wid);
-
-  let full_grid_str = grid_str;
-  for (let extry = 0  ;  extry < duper_count  ;  ++extry)
-    full_grid_str = full_grid_str + grid_str;
-  strippy.style["grid-template-columns"] = full_grid_str;
-
-  for (let extry = 0  ;  extry < duper_count  ;  ++extry)
-    for (let q = 0  ;  q < num_im  ;  ++q)
-      { let im = strim[q] . cloneNode ()
-        strippy . appendChild (im);
-        LampreyHandlersOntoImage (im);
-      }
-
-  momma . ZeroTime ();
-  setInterval (ScrollThatOldStrippy, 33);
-
-  if (strip_drift_per_sec  >  0.0)
-    { strip_xpos = -total_wid;
-      strippy.style.left = "" + strip_xpos + "px";
-    }
-}
-
-
-function ScrollThatOldStrippy ()
-{ let dt = momma . DeltaTime ();
-  strip_xpos += dt * strip_drift_per_sec;
-
-  if (strip_drift_per_sec  <  0.0)
-    { while (strip_xpos  <  -total_wid)
-        strip_xpos += total_wid;
-    }
-  else
-    { while (strip_xpos  >  0.0)
-        strip_xpos -= total_wid;
-    }
-
-  strippy.style.left = "" + strip_xpos + "px";
-}
-
-
-let loaded_so_far = 0;
-
-function CompletedIm (ev)
-{ //
-  console.log (ev);
-  this.style.width = "auto";
-  this.style.height = "80px";
-  if (++loaded_so_far == num_im)
-    OmniscienceAttained ();
-}
-
-function BadloadIm (ev)
-{ //
-  console.log (ev);
-  if (++loaded_so_far == num_im)
-    OmniscienceAttained ();
-}
 
 
 let hoveree = null;
@@ -158,46 +70,20 @@ function CursorShambler (ev)
 
 window.document . addEventListener ("mousemove", CursorShambler);
 
-window.document.body . appendChild (strippy);
+let strim = stripster . ImageArray ();
+
 window.document.body . appendChild (soloist);
 
 window.document.body . appendChild (cusser);
 
-strippy.style.width = "100%";
-strippy.style.height = "auto";
-strippy.style.borderWidth = "2px";
-strippy.style.borderStyle = "solid";
-strippy.style.borderColor = "green";
-strippy.style.position = 'absolute';
-strippy.style.top = '0px';
-strippy.style.left = '0px';
-strippy.style.display = 'grid';
-//strippy.style["grid-template-columns"] = 'repeat(15, 150px)';
-//strippy.style["grid-template-rows"] = '120px';
-strippy.style["align-items"] = 'center';
-//strippy.style.gap = '10px';
 
 let ell = 0;
 
-for (let q = 0  ;  q < num_im  ;  ++q)
-  { let im = new Image ();
-    strim . push (im);
-    strippy . appendChild (im);
-    im.namai = "immy-" + (q+1);  // just a li'l name for debugging.
-
-    im.style.borderWidth = brdr_wid;
-    im.style.borderStyle = "solid";
-
-    LampreyHandlersOntoImage (im);
-
-    im . addEventListener ("load", CompletedIm);
-    im . addEventListener ("error", BadloadIm);
-    im.src = "image" + (q+1) + ".png";
-}
-
-
 let flim = new Image ();
 let flimcount = 0;
+
+flim.style.position = "absolute";
+flim.style.top = "200px";
 soloist . appendChild (flim);
 
 
