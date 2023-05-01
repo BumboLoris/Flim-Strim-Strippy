@@ -20,19 +20,19 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
 
   let momma = new MotherTime ();
 
+  let all_loaded = false;
+
 
   function OmniscienceAttained ()
     { let grid_str = "";
 
       for (let q = 0  ;  q < num_im  ;  ++q)
         { let im = strim[q];
-//          let w = im.width;
           let w = im_height * im.naturalWidth;
           if (im.naturalHeight != 0)
             w /= im.naturalHeight;
           if (w > 0)
             w += inter_gap;
-//          strippy . appendChild (im);
           total_wid += w;
           grid_str = grid_str + w + "px ";
         }
@@ -45,6 +45,8 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
       for (let extry = 0  ;  extry < duper_count  ;  ++extry)
         full_grid_str = full_grid_str + grid_str;
       strippy.style["grid-template-columns"] = full_grid_str;
+
+      stripster.style.width = "" + (duper_count * total_wid) + "px";
 
       for (let extry = 0  ;  extry < duper_count  ;  ++extry)
         for (let q = 0  ;  q < num_im  ;  ++q)
@@ -61,6 +63,9 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
         { strip_xpos = -total_wid;
           strippy.style.left = "" + strip_xpos + "px";
         }
+
+      all_loaded = true;
+console.log("enough omniscience for you, sven?");
     }
 
 
@@ -110,14 +115,48 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
       im.src = im_name_base + (q+1) + ".png";
     }
 
-  strippy.ImageArray = function ()
+  function OnceStripImagesLoaded ()
+    { return new Promise ( reso_func => {
+        function CheckLanguidly ()
+          { if (all_loaded)
+              reso_func ();
+            else
+              setTimeout (CheckLanguidly, 50);
+          }
+        CheckLanguidly ();
+        } );
+    }
+
+  strippy.OriginalImageArray = function ()
     { return strim; }
+
+  strippy.ApplyToStripImages = function (funq)
+    { if (strippy . hasChildNodes ())
+        for (const noad of strippy.childNodes)
+          funq (noad);
+    }
+
+  strippy.ApplyToStripImagesOnceLoaded = async function (funq)
+    { OnceStripImagesLoaded () . then (() =>
+                                       { strippy.ApplyToStripImages (funq) });
+    }
+
+  strippy.StripImagesArray = function ()
+    { let outarr = new Array ();
+      if (strippy . hasChildNodes ())
+        for (const noad of strippy.childNodes)
+          outarr . push (noad);
+      return outarr;
+    }
 
   strippy.ShambleSpeed = function ()
     { return strip_drift_per_sec; }
 
   strippy.SetShambleSpeed = function (pxl_per_sec)
     { strip_drift_per_sec = pxl_per_sec; }
+
+  strippy.AllImagesLoaded = function ()
+    { return all_loaded; }
 
   strippy.style.width = "100%";
   strippy.style.height = "auto";
