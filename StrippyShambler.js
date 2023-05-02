@@ -50,7 +50,9 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
 
       for (let extry = 0  ;  extry < duper_count  ;  ++extry)
         for (let q = 0  ;  q < num_im  ;  ++q)
-          { let im = strim[q] . cloneNode ()
+          { let orig_im = strim[q];
+            let im = orig_im . cloneNode ()
+            im.strippy_orig_img_index = orig_im.strippy_orig_img_index;
             strippy . appendChild (im);
             if (typeof (ApplyEventHandlersFunc)  ==  'function')
               ApplyEventHandlersFunc (im);
@@ -65,7 +67,6 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
         }
 
       all_loaded = true;
-console.log("enough omniscience for you, sven?");
     }
 
 
@@ -104,7 +105,7 @@ console.log("enough omniscience for you, sven?");
     { let im = new Image ();
       strim . push (im);
       strippy . appendChild (im);
-      im.namai = "immy-" + (q+1);  // just a li'l name for debugging.
+      im.strippy_orig_img_index = q + 1;
 
       im . addEventListener ("load", CompletedIm);
       im . addEventListener ("error", BadloadIm);
@@ -125,6 +126,28 @@ console.log("enough omniscience for you, sven?");
           }
         CheckLanguidly ();
         } );
+    }
+
+  strippy.strippy_meta_map = new Map ();
+
+  strippy.SetValueForMetaKeyAndKey = function (mkey, key, val)
+    { let map = strippy.strippy_meta_map . get (mkey);
+      if (! map)
+        strippy.strippy_meta_map . set (mkey, map = new Map ());
+      map . set (key, val);
+      return val;
+    }
+
+  strippy.ValueForMetaKeyAndKey = function (mkey, key, val)
+    { let map = strippy.strippy_meta_map . get (mkey);
+      return (map  ?  map . get (key)  :  null);
+    }
+
+  strippy.LoadArrayForMetaKey = function (mkey, arr)
+    { const cnt = strim.length;
+      for (let q = 0  ;  q < cnt  ;  ++q)
+        strippy.SetValueForMetaKeyAndKey (mkey, (q + 1), arr[q]);
+      return arr;
     }
 
   strippy.OriginalImageArray = function ()

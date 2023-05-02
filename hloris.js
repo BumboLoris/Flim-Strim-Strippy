@@ -13,7 +13,15 @@ function MouseLeaveIm (ev)
 { this.style.borderColor = "rgba(0,0,0,0.0)"; }
 
 function MouseDownIm (ev)
-{ this.style.borderColor = "blue"; }
+{ this.style.borderColor = "blue";
+  let ss = document . getElementById ("sub-snack");
+  if (ss)
+    { let url = stripster . ValueForMetaKeyAndKey ("snack-url",
+                                                   this.strippy_orig_img_index);
+      if (url)
+        ss.src = url;
+    }
+ }
 
 function MouseUpIm (ev)
 { this.style.borderColor = "pink"; }
@@ -49,8 +57,8 @@ window.document.body . appendChild (soloist);
 let flim = new Image ();
 let flimcount = 0;
 
-flim.style.position = "absolute";
-flim.style.top = "200px";
+soloist.style.position = "absolute";
+soloist.style.top = "200px";
 soloist . appendChild (flim);
 
 
