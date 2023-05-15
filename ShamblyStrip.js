@@ -1,6 +1,6 @@
 
-function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
-                              ApplyEventHandlersFunc)
+function MakeShamblyStrip (im_name_base, num_im, im_height, inter_gap,
+                           ApplyEventHandlersFunc)
 { if (typeof (im_height) != 'number')
     im_height = 120;
   if (inter_gap == undefined)
