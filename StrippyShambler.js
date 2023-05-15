@@ -160,8 +160,8 @@ function MakeStrippyShambler (im_name_base, num_im, im_height, inter_gap,
     }
 
   strippy.ApplyToStripImagesOnceLoaded = async function (funq)
-    { OnceStripImagesLoaded () . then (() =>
-                                       { strippy.ApplyToStripImages (funq) });
+    { OnceStripImagesLoaded () . then (
+        () => { strippy . ApplyToStripImages (funq); } );
     }
 
   strippy.StripImagesArray = function ()

@@ -26,11 +26,6 @@ function MouseDownIm (ev)
 function MouseUpIm (ev)
 { this.style.borderColor = "pink"; }
 
-function KeyDownUniv (ev)
-{ if (hoveree != null)
-    hoveree . before (" flap");
-}
-
 
 function LampreyHandlersOntoImage (im)
 { im.style.borderStyle = "solid";
@@ -43,13 +38,16 @@ function LampreyHandlersOntoImage (im)
 }
 
 
-let soloist = window.document . createElement ('div');
-
-
 let hoveree = null;
 
 stripster . ApplyToStripImagesOnceLoaded (LampreyHandlersOntoImage);
 let strim = stripster . OriginalImageArray ();
+
+stripster.style.position = "absolute";
+stripster.style.top = "20px";
+
+
+let soloist = window.document . createElement ('div');
 
 window.document.body . appendChild (soloist);
 
@@ -57,10 +55,9 @@ window.document.body . appendChild (soloist);
 let flim = new Image ();
 let flimcount = 0;
 
-soloist.style.position = "absolute";
+soloist.style.position = "relative";
 soloist.style.top = "200px";
 soloist . appendChild (flim);
-
 
 function FlipToNextImage ()
 { flim.src = strim[flimcount].src;
@@ -70,6 +67,3 @@ function FlipToNextImage ()
 
 
 setInterval (FlipToNextImage, 333);
-
-
-window.document.body . addEventListener ("keydown", KeyDownUniv);
