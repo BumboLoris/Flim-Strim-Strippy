@@ -55,7 +55,7 @@ window.document.body . appendChild (soloist);
 let flim = new Image ();
 let flimcount = 0;
 
-soloist.style.position = "relative";
+soloist.style.position = "absolute";
 soloist.style.top = "200px";
 soloist . appendChild (flim);
 
@@ -64,6 +64,30 @@ function FlipToNextImage ()
   if (++flimcount  >=  strim.length)
       flimcount = 0;
 }
+
+function RandomHSL ()
+{ const h = Math.floor (360.0 * Math.random ());
+  const s = 25.0 + Math.floor (75.0 * Math.random ());
+  const l = 50;
+  const hsl_str = `hsl(${h} ${s}% ${l}%)`;
+  return hsl_str;
+}
+
+
+const morsels = new Array ();
+for (let q = 0  ;  q < 17  ;  ++q)
+  { const rec = window.document . createElement ('div');
+    rec.style.width = "150px";
+    rec.style.height = "100px";
+    rec.style.backgroundColor = RandomHSL ();
+    //window.document.body . appendChild (rec);
+    morsels . push (rec);
+  }
+
+const dg = MakeDitheryGridWithContents (morsels);
+dg.style.width = "" + window.innerWidth + "px";
+window.document.body . appendChild (dg);
+dg . LayOutPreliminarily ();
 
 
 setInterval (FlipToNextImage, 333);
