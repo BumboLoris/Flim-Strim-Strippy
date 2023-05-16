@@ -21,22 +21,59 @@ function MakeDitheryGrid ()
   let v_brd = 10, v_gap = 4;
   let asp_rat = 1.5;
 
-  function _LayOut ()
-    { const elcnt = dithgrid.childNodes.length;
+  let all_cells = new Array ();
+
+  let am_dithering = false;
+  let dither_dur = 0.5;
+
+  let momma_t = new MotherTime ();
+
+
+  function _AnimateGrudgingly ()
+    { let rawt = momma_t . CurTime ();
+      let t = rawt / dither_dur;
+      if (t > 1.0)
+        t = 1.0;
+      let omt = 1.0 - t;
+
+      for (const el of all_cells)
+        { let lt = omt * el.prvl  +  t * el.newl;
+          let tp = omt * el.prvt  +  t * el.newt;
+          el.style.left = "" + lt + "px";
+          el.style.top = "" + tp + "px";
+        }
+
+      if (t < 1.0)
+        setTimeout (_AnimateGrudgingly, 33);
+      else
+        am_dithering = false;
+    }
+
+
+  function _LayOut (animate)
+    { const elcnt = all_cells.length;
       let elwid = dithgrid.offsetWidth - (2 * h_brd + (h_cnt - 1) * h_gap);
       elwid = elwid / h_cnt;
       let elhei = elwid / asp_rat;
       let v_cnt = Math.ceil (elcnt / h_cnt);
       const wstr = "" + elwid + "px", hstr = "" + elhei + "px";
 
+      let anim = ! ! animate;
+
       let lt = h_brd, tp = v_brd;
       let q = 0;
-      for (const el of dithgrid.childNodes)
-        { el.style.left = "" + lt + "px";
-          el.style.top = "" + tp + "px";
-          el.style.width = wstr;
+      for (const el of all_cells)
+        { el.style.width = wstr;
           el.style.height = hstr;
-          //el.style.width = 
+          el.prvl = el.newl || 0;
+          el.prvt = el.newt || 0;
+          el.newl = lt;
+          el.newt = tp;
+          if (! anim)
+            { el.style.left = "" + lt + "px";
+              el.style.top = "" + tp + "px";
+            }
+
           if (++q  <  h_cnt)
             lt += elwid + h_gap;
           else
@@ -45,15 +82,35 @@ function MakeDitheryGrid ()
               tp += elhei + v_gap;
             }
         }
+
+      if (anim)
+        { momma_t . ZeroTime ();
+          am_dithering = true;
+          setTimeout (_AnimateGrudgingly, 33);
+        }
     }
 
   dithgrid.LayOutPreliminarily = function ()
     { _LayOut (); }
 
+  dithgrid.LayOutAnew = function ()
+    { _LayOut (true); }
+
   dithgrid.AppendGridCell = function (el)
-    { //
+    { all_cells . push (el);
       el.style.position = 'absolute';
       dithgrid . appendChild (el);
+    }
+
+  dithgrid.ScrambleCells = function ()
+    { let novo_arr = new Array ();
+      const cnt = all_cells.length;
+      for (let q = 0  ;  q < cnt  ;  ++q)
+        { const ind = Math.floor (all_cells.length * Math.random ());
+          novo_arr . push (all_cells . at (ind));
+          all_cells . splice (ind, 1);
+        }
+      all_cells = novo_arr;
     }
 
 

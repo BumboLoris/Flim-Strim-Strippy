@@ -85,9 +85,15 @@ for (let q = 0  ;  q < 17  ;  ++q)
   }
 
 const dg = MakeDitheryGridWithContents (morsels);
+dg.style.position = 'absolute';
+dg.style.top = "400px";
 dg.style.width = "" + window.innerWidth + "px";
 window.document.body . appendChild (dg);
 dg . LayOutPreliminarily ();
+
+dg . addEventListener ('mousedown', () => { dg . ScrambleCells ();
+                                            dg . LayOutAnew (); }
+                      );
 
 
 setInterval (FlipToNextImage, 333);
