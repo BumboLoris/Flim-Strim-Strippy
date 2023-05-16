@@ -121,6 +121,61 @@ function MakeDitheryGrid ()
       all_cells = novo_arr;
     }
 
+  dithgrid.RearrangeAccordingTo = function (pred_fn)
+    { let oui_arr = new Array (), non_arr = new Array ();
+      for (const el of all_cells)
+        if (pred_fn (el))
+          oui_arr . push (el);
+        else
+          non_arr . push (el);
+      all_cells = oui_arr . concat (non_arr);
+      dithgrid . LayOutAnew ();
+    }
+
+  dithgrid.NumColumns = function ()
+    { return h_cnt; }
+  dithgrid.SetNumColumns = function (nc)
+    { h_cnt = nc;  return this; }
+
+  dithgrid.HBorder = function ()
+    { return h_brd; }
+  dithgrid.SetHBorder = function (hb)
+    { h_brd = hb;  return this; }
+
+  dithgrid.VBorder = function ()
+    { return v_brd; }
+  dithgrid.SetHBorder = function (vb)
+    { v_brd = vb;  return this; }
+
+  dithgrid.HGap = function ()
+    { return h_gap; }
+  dithgrid.SetHGap = function (hg)
+    { h_gap = hg;  return this; }
+
+  dithgrid.VGap = function ()
+    { return v_gap; }
+  dithgrid.SetHGap = function (vg)
+    { v_gap = vg;  return this; }
+
+
+  dithgrid.DitherDuration = function ()
+    { return dither_dur; }
+  dithgrid.SetDitherDuration = function (dd)
+    { dither_dur = dd;  return this; }
+
+  dithgrid.DitherInterpFunc = function ()
+    { return dithinterp_fn; }
+  dithgrid.SetDitherInterpFunc = function (dif)
+    { dithinterp_fn = dif;  return this; }
+
+
+  dithgrid.CellAspectRatio = function ()
+    { return asp_rat; }
+  dithgrid.SetCellAspectRatio = function (ar)
+    { asp_rat = ar;  return this; }
+
+
+
 
   return dithgrid;
 }

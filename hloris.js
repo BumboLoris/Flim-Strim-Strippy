@@ -91,8 +91,16 @@ dg.style.width = "" + window.innerWidth + "px";
 window.document.body . appendChild (dg);
 dg . LayOutPreliminarily ();
 
-dg . addEventListener ('mousedown', () => { dg . ScrambleCells ();
-                                            dg . LayOutAnew (); }
+dg . addEventListener ('mousedown',
+                       () => dg . RearrangeAccordingTo ( (el) =>
+                           { let iro = el.style.backgroundColor;
+                             iro = iro.substring (iro . indexOf ('(') + 1,
+                                                  iro . indexOf (')'));
+                             let rgb = iro . split (',');
+                             return (parseInt (rgb[1])  >  128);
+                           } )
+                       //() => { dg . ScrambleCells ();
+                       //        dg . LayOutAnew (); }
                       );
 
 
