@@ -25,6 +25,7 @@ function MakeDitheryGrid ()
 
   let am_dithering = false;
   let dither_dur = 0.5;
+  let dithinterp_fn = InterpFuncs.QUADRATIC_AB;
 
   let momma_t = new MotherTime ();
 
@@ -34,13 +35,14 @@ function MakeDitheryGrid ()
       let t = rawt / dither_dur;
       if (t > 1.0)
         t = 1.0;
+      t = dithinterp_fn (t);
       let omt = 1.0 - t;
 
       for (const el of all_cells)
         { let lt = omt * el.prvl  +  t * el.newl;
           let tp = omt * el.prvt  +  t * el.newt;
-          el.style.left = "" + lt + "px";
-          el.style.top = "" + tp + "px";
+          el.style.left = "" + (el.curl = lt) + "px";
+          el.style.top = "" + (el.curt = tp) + "px";
         }
 
       if (t < 1.0)
@@ -65,13 +67,17 @@ function MakeDitheryGrid ()
       for (const el of all_cells)
         { el.style.width = wstr;
           el.style.height = hstr;
-          el.prvl = el.newl || 0;
-          el.prvt = el.newt || 0;
+          el.prvl = el.newl || lt;
+          el.prvt = el.newt || tp;
           el.newl = lt;
           el.newt = tp;
           if (! anim)
             { el.style.left = "" + lt + "px";
               el.style.top = "" + tp + "px";
+            }
+          else if (am_dithering)
+            { el.prvl = el.curl;
+              el.prvt = el.curt;
             }
 
           if (++q  <  h_cnt)
@@ -85,8 +91,10 @@ function MakeDitheryGrid ()
 
       if (anim)
         { momma_t . ZeroTime ();
-          am_dithering = true;
-          setTimeout (_AnimateGrudgingly, 33);
+          if (! am_dithering)
+            { am_dithering = true;
+              setTimeout (_AnimateGrudgingly, 33);
+            }
         }
     }
 
