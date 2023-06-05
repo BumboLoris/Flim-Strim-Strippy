@@ -1,4 +1,9 @@
 
+//
+/// (c) Parker Loris and Borton Fweems
+//
+
+
 function MakeShamblyStrip (im_name_base, num_im, im_height, inter_gap,
                            ApplyEventHandlersFunc)
 { if (typeof (im_height) != 'number')

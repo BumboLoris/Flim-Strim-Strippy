@@ -1,4 +1,8 @@
 
+//
+/// (c) Parker Loris and Borton Fweems
+//
+
 function MakeMByNDitheryGrid (emm, enn)
 { let dgrid = MakeDitheryGrid ();
 

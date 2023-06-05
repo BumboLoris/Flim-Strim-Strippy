@@ -1,5 +1,7 @@
 
-//import { MotherTime } from "./MotherTime.js";
+//
+/// (c) Parker Loris and Borton Fweems
+//
 
 
 const brdr_wid = "2px";
