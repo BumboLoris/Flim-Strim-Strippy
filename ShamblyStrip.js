@@ -4,7 +4,16 @@
 //
 
 
-function MakeShamblyStrip (im_name_base, num_im, im_height, inter_gap,
+function MakeShamblyStripFromCommonBaseName (im_name_base, num_im, im_name_ext,
+                                             im_height, inter_gap,
+                                             ApplyEventHandlersFunc)
+{ let arr = [];
+  for (let q = 1  ;  q <= num_im  ;  ++q)
+    arr . push (im_name_base + q + im_name_ext);
+  return MakeShamblyStrip (arr, im_height, inter_gap, ApplyEventHandlersFunc);
+}
+
+function MakeShamblyStrip (im_name_arr, im_height, inter_gap,
                            ApplyEventHandlersFunc)
 { if (typeof (im_height) != 'number')
     im_height = 120;
@@ -14,9 +23,12 @@ function MakeShamblyStrip (im_name_base, num_im, im_height, inter_gap,
   let strippy = window.document . createElement ('div');
   let strim = new Array ();
 
-  if (typeof (im_name_base) != 'string'
-      ||  num_im == undefined  ||  typeof (num_im) != 'number')
+  // if (typeof (im_name_base) != 'string'
+  //     ||  num_im == undefined  ||  typeof (num_im) != 'number')
+  if (im_name_arr == undefined  ||  im_name_arr.length < 1)
     return strippy;
+
+  let num_im = im_name_arr.length;
 
   let total_wid = 0;
 
@@ -118,7 +130,8 @@ function MakeShamblyStrip (im_name_base, num_im, im_height, inter_gap,
       if (typeof (ApplyEventHandlersFunc)  ==  'function')
         ApplyEventHandlersFunc (im);
 
-      im.src = im_name_base + (q+1) + ".png";
+      //im.src = im_name_base + (q+1) + ".gif";
+      im.src = im_name_arr[q];
     }
 
   function OnceStripImagesLoaded ()

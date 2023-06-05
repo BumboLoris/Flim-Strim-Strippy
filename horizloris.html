@@ -15,7 +15,11 @@
 <script src="DitheryGrid.js"> </script>
 <script src="InterpFuncs.js"> </script>
 <script>
-  let stripster = MakeShamblyStrip ("image", 5, 120, 20);
+  let stripster = MakeShamblyStripFromCommonBaseName ("image", 5, ".png",
+                                                      120, 20);
+  //let stripster = MakeShamblyStrip (["blamf1.gif", "blamf2.gif",
+  //                                   "blamf3.gif", "blamf4.gif", "m-drop.gif"],
+  //                                   120, 20);
   document.body . appendChild (stripster);
   stripster . LoadArrayForMetaKey ("snack-url",
                                    ["https://en.wikipedia.org",
