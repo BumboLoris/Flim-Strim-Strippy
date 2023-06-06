@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+    <title>~~ horizontally, baby ~~</title>
+  </head>
+
+
+<body>
+
+
+
+<div id="swamp"
+     style="position: absolute; top: 730px; width: 100%; height: auto">
+  <iframe id="sub-snack"
+          width="100%" height="800px">
+  </iframe>
+</div>
+
+<script src="MotherTime.js"> </script>
+<script src="ShamblyStrip.js"> </script>
+<script src="DitheryGrid.js"> </script>
+<script src="InterpFuncs.js"> </script>
+
+<script>
+  //
+  const prkr = document . createElement ("div");
+  prkr.innerHTML = "p a r k e r _ l o r i s";
+  prkr.style.position = "absolute";
+  prkr.style.fontSize = "80px";
+  prkr.style.top = "50px";
+  prkr.style.width = "100%";
+  prkr.style["text-align"] = "center";
+  prkr.style.color = "rgba(40,40,40,0.85)";
+  document.body . appendChild (prkr);
+
+  const categs = ["pants", "editing", "animation", "fine-art", "mograph"];
+  let stripster = MakeShamblyStrip (["image1.png", "image2.png",
+                                     "a-run.gif", "image4.png", "m-drop.gif"],
+                                     120, 20);
+  document.body . appendChild (stripster);
+  stripster.style.top = "40px";
+
+  const brdr_wid = "2px";
+
+  function MouseEnterIm (ev)
+    { this.style.borderColor = "red";
+      this.style.borderWidth = "2px";
+    }
+
+  function MouseLeaveIm (ev)
+    { this.style.borderColor = "rgba(0,0,0,0.0)"; }
+
+  function MouseDownIm (ev)
+    { this.style.borderColor = "blue";
+      const ctgr
+        = stripster . ValueForMetaKeyAndKey ("category",
+                                             this.strippy_orig_img_index);
+      dg . RearrangeAccordingTo ( (el) =>
+        (el.talent_categ . indexOf (ctgr)  >=  0) );
+    }
+
+  function LampreyHandlersOntoImage (im)
+    { im.style.borderStyle = "solid";
+      im.style.borderWidth = "2px";
+      im.style.borderColor = "rgba(0,0,0,0.0)";
+      im . addEventListener ("mouseenter", MouseEnterIm);
+      im . addEventListener ("mouseleave", MouseLeaveIm);
+      im . addEventListener ("mousedown", MouseDownIm);
+    }
+
+  stripster . ApplyToStripImagesOnceLoaded (LampreyHandlersOntoImage);
+
+  stripster . LoadArrayForMetaKey ("category", categs);
+
+  const wubsites
+    = ["https://en.wikipedia.org", "https://archive.org", "https://reas.com",
+       "https://boingboing.net", "https://wolfram.com",
+       "https://liartownusa.com"];
+
+
+  function RandomHSL ()
+    { const h = Math.floor (360.0 * Math.random ());
+      const s = 25.0 + Math.floor (75.0 * Math.random ());
+      const l = 50;
+      const hsl_str = `hsl(${h} ${s}% ${l}%)`;
+      return hsl_str;
+    }
+
+  function RectPalp ()
+    { const ss = document . getElementById ("sub-snack");
+      if (ss)
+        ss.src = this.wubs;
+    }
+
+  const morsels = new Array ();
+  for (let q = 0  ;  q < 20  ;  ++q)
+    { const rec = window.document . createElement ('div');
+      rec.style.width = "150px"; rec.style.height = "100px";
+      rec.style.backgroundColor = RandomHSL ();
+      const subcats = [...categs];  // copy category array, see.
+      const del_cnt = categs.length - Math.floor ((1 + 3.0 * Math.random ()));
+      for (let q = 0  ;  q < del_cnt  ;  ++q)
+        subcats . splice (Math.floor (Math.random () * subcats.length), 1);
+      rec.talent_categ = subcats . join (" | ");
+      rec.innerHTML = rec.talent_categ;
+      rec.style.display = "flex";
+      rec.style["justify-content"] = "center";
+      rec.style["align-items"] = "center";
+      rec.style.color = "rgba(40,40,40,0.4)";
+      rec.wubs = wubsites[Math.floor (Math.random () * wubsites.length)];
+      rec . addEventListener ("mousedown", RectPalp);
+      morsels . push (rec);
+    }
+
+  const dg = MakeDitheryGridWithContents (morsels);
+  dg.style.position = 'absolute';
+  dg.style.top = "200px";
+  dg.style.width = "" + window.innerWidth + "px";
+  window.document.body . appendChild (dg);
+  dg . LayOutPreliminarily ();
+  //
+</script>
+
+
+</body>
+</html>
