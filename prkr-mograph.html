@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html><head>
+	
+  <title>Parker Loris Underkoffler - Motion Graphics</title>
+	 
+	<link rel="stylesheet" href="styles.css">
+
+	<script src="MotherTime.js"> </script>
+<script src="ShamblyStrip.js"> </script>
+<script src="DitheryGrid.js"> </script>
+<script src="InterpFuncs.js"> </script>
+
+	
+	
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 10;
+    }
+    
+    header {
+      background-color: #222;
+      color: #fff;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 48px;
+      margin: 0;
+    }
+    
+    h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 24px;
+      margin: 0;
+      margin-top: 10px;
+      font-weight: normal;
+      letter-spacing: 1px;
+    }
+    
+    section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding:15px 5px 0px ;
+      max-width: 1920px;
+      
+    }
+    
+    figure {
+      margin: 0px 8px 10px;
+		
+      max-width: 100%;
+      position: relative;
+		
+    }
+    
+    figcaption {
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    color: #D6D6D6;
+    font-family: 'Open Sans', sans-serif;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s linear;
+    top: 50%;
+    transform: translate(0, -15%);	
+    }
+    
+    figure:hover figcaption {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 36px;
+      }
+      
+      h2 {
+        font-size: 18px;
+      }
+      
+      section {
+        padding: 20px;
+      }
+      
+      figure {	
+		  margin: 0 0 20px;
+      }
+      
+      figcaption {
+        font-size: 14px;
+      }
+	  }
+	/*.bg-video {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('BG_T.gif');
+  background-size: cover;
+  background-position: center;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}	*/
+		
+    <style>
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-GxQ2y/6/qyOY/A60AY8Oq3E3pU5m5ZExS0E8XvU6l4yJxB0y4YzW8qnScI6DnHlIMfJZfgjXGgQDv01CkgH28A==" crossorigin="anonymous"></script>
+	
+</head>
+	
+<body>
+
+  <header>
+    <h1>Parker Loris Underkoffler</h1>
+    <h2>Motion Graphics</h2>
+  </header>
+  
+	<script>
+  let stripster = MakeStrippyShambler ("image", 5, 120, 20);
+  document.body . appendChild (stripster);
+  stripster . LoadArrayForMetaKey ("snack-url",
+                                   ["https://en.wikipedia.org",
+                                    "https://boingboing.net",
+                                    "https://wolfram.com",
+                                    "https://liartownusa.com",
+                                    "https://archive.org"]);
+</script>
+	
+	
+	  <div class="bg-video"></div>
+
+
+	
+  <section>
+	  
+    <figure>
+      <img src="Chevy1.gif" alt="Placeholder 1" loading="lazy">
+      <figcaption>Caption 1</figcaption>
+    </figure>
+    
+    <figure>
+      <img src="https://via.placeholder.com/444x250" alt="Placeholder 2" loading="lazy">
+      <figcaption>Caption 2</figcaption>
+    </figure>
+	  
+    <figure>
+      <img src="https://via.placeholder.com/444x250" alt="Placeholder 3" loading="lazy">
+      <figcaption>Caption 3</figcaption>
+    </figure>
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/444x250" alt="Placeholder 4" loading="lazy">
+      <figcaption>Caption 4</figcaption>
+    </figure>
+	  
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/444x250" alt="Placeholder 5" loading="lazy">
+      <figcaption>Caption 5</figcaption>
+    </figure>
+	  
+	   
+	  <figure>
+      <img src="https://via.placeholder.com/444x250" alt="Placeholder 6" loading="lazy">
+      <figcaption>Caption 6</figcaption>
+    </figure>
+	  
+	   
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 7" loading="lazy">
+      <figcaption>Caption 7</figcaption>
+    </figure>
+    
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 8" loading="lazy">
+      <figcaption>Caption 8</figcaption>
+    </figure>
+	  
+	    <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 9" loading="lazy">
+      <figcaption>Caption 9</figcaption>
+    </figure>
+	  
+	   
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 10" loading="lazy">
+      <figcaption>Caption 10</figcaption>
+    </figure>
+    
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 11" loading="lazy">
+      <figcaption>Caption 11</figcaption>
+    </figure>
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 12" loading="lazy">
+      <figcaption>Caption 12</figcaption>
+    </figure>
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 13" loading="lazy">
+      <figcaption>Caption 13</figcaption>
+    </figure>
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 14" loading="lazy">
+      <figcaption>Caption 14</figcaption>
+    </figure>
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 15" loading="lazy">
+      <figcaption>Caption 15</figcaption>
+    </figure>
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 16" loading="lazy">
+      <figcaption>Caption 16</figcaption>
+    </figure>
+	  
+	  <figure>
+      <img src="https://via.placeholder.com/300x300" alt="Placeholder 17" loading="lazy">
+      <figcaption>Caption 17</figcaption>
+    </figure>
+	  
+    <!-- Add more placeholders as needed -->
+  </section>
+	
+	<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var lazyLoadInstance = lazyload();
+  });
+</script>
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-GxQ2y/6/qyOY/A60AY8Oq3E3pU5m5ZExS0E8XvU6l4yJxB0y4YzW8qnScI6DnHlIMfJZfgjXGgQDv01CkgH28A==" crossorigin="anonymous"></script>
+
+	
+</body>
+</html>
