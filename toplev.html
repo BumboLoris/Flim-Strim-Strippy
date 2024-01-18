@@ -39,10 +39,14 @@
                        "prkr-animation.html",
                        "prkr-mograph.html"];
 
-  let stripster = MakeShamblyStrip (["image2.png",
-                                     "a-run.gif",
-                                     "m-drop.gif"],
-                                     240, 20);
+  let stripster = MakeShamblyStrip ( ["image2.png",
+                                      "a-run.gif",
+                                      "m-drop.gif"],
+                                     240, 0,
+                                     ["flensing",
+                                      "animation",
+                                      "motion graphics"]
+                                   );
   document.body . appendChild (stripster);
   stripster.style.top = "180px";
 

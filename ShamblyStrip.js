@@ -14,7 +14,7 @@ function MakeShamblyStripFromCommonBaseName (im_name_base, num_im, im_name_ext,
 }
 
 function MakeShamblyStrip (im_name_arr, im_height, inter_gap,
-                           ApplyEventHandlersFunc)
+                           text_labels, ApplyEventHandlersFunc)
 { if (typeof (im_height) != 'number')
     im_height = 120;
   if (inter_gap == undefined)
@@ -22,6 +22,7 @@ function MakeShamblyStrip (im_name_arr, im_height, inter_gap,
 
   let strippy = window.document . createElement ('div');
   let strim = new Array ();
+  let divan = new Array ();
 
   // if (typeof (im_name_base) != 'string'
   //     ||  num_im == undefined  ||  typeof (num_im) != 'number')
@@ -68,9 +69,11 @@ function MakeShamblyStrip (im_name_arr, im_height, inter_gap,
       for (let extry = 0  ;  extry < duper_count  ;  ++extry)
         for (let q = 0  ;  q < num_im  ;  ++q)
           { let orig_im = strim[q];
-            let im = orig_im . cloneNode ()
+            let orig_di = divan[q];
+            let di = orig_di . cloneNode (true);
+            let im = di.firstChild;
             im.strippy_orig_img_index = orig_im.strippy_orig_img_index;
-            strippy . appendChild (im);
+            strippy . appendChild (di);
             if (typeof (ApplyEventHandlersFunc)  ==  'function')
               ApplyEventHandlersFunc (im);
           }
@@ -119,10 +122,20 @@ function MakeShamblyStrip (im_name_arr, im_height, inter_gap,
     }
 
   for (let q = 0  ;  q < num_im  ;  ++q)
-    { let im = new Image ();
+    { const divvy = document.createElement ("div");
+      let im = new Image ();
+      divvy . appendChild (im);
       strim . push (im);
-      strippy . appendChild (im);
+      divan . push (divvy);
+      strippy . appendChild (divvy);
+
       im.strippy_orig_img_index = q + 1;
+
+      const texty = document.createElement ("div");
+      texty.innerHTML = text_labels  ?  text_labels[q]  :  "";
+      texty.style["text-align"] = "center";
+      texty.classList . add ("strippy-labelism");
+      divvy . appendChild (texty);
 
       im . addEventListener ("load", CompletedIm);
       im . addEventListener ("error", BadloadIm);
